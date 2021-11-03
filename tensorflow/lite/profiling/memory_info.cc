@@ -36,15 +36,15 @@ bool MemoryUsage::IsSupported() {
 MemoryUsage GetMemoryUsage() {
   MemoryUsage result;
 #ifdef __linux__
-  rusage res;
-  if (getrusage(RUSAGE_SELF, &res) == 0) {
-    result.max_rss_kb = res.ru_maxrss;
-  }
-  const auto mem = mallinfo2();
-  result.total_allocated_bytes = mem.arena;
-  result.in_use_allocated_bytes = mem.uordblks;
 #endif
-  return result;
+    rusage res;
+    if (getrusage(RUSAGE_SELF, &res) == 0) {
+        result.max_rss_kb = res.ru_maxrss;
+    }
+//  const auto mem = mallinfo2();
+    result.total_allocated_bytes = 0;
+    result.in_use_allocated_bytes = 0;
+    return result;
 }
 
 void MemoryUsage::AllStatsToStream(std::ostream* stream) const {
