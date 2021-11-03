@@ -40,7 +40,7 @@ MemoryUsage GetMemoryUsage() {
   if (getrusage(RUSAGE_SELF, &res) == 0) {
     result.max_rss_kb = res.ru_maxrss;
   }
-  const auto mem = mallinfo();
+  const auto mem = mallinfo2();
   result.total_allocated_bytes = mem.arena;
   result.in_use_allocated_bytes = mem.uordblks;
 #endif
